@@ -26,7 +26,7 @@ public class Main {
 	
 	public static void  main(String [] arg) throws IOException  {
 		
-		//we setup an engine to be used
+		// //we setup an engine to be used
 		STOCKFISH engine = new STOCKFISH();
 			
 		// Create a CONFIG object and load the file so that we have the settings available
@@ -40,9 +40,9 @@ public class Main {
         starting_List.loadFromSan(starting_pgn);
         String starting_fen =  starting_List.getFen();	
         
-        //System.out.println(starting_fen);
+        System.out.println(starting_fen);
                 
-		//We send the starting position to branch builder
+		// //We send the starting position to branch builder
 		do_branch_builder (starting_pgn, starting_fen, engine);
 		
 		engine.close();
@@ -183,10 +183,7 @@ public class Main {
 			
 			//We go through the villain candidates and put them into our lines_in_repertoire array
 			if (size > 0 ) {
-                System.out.print("size is = " + size);
-
-                
-
+				
 				//If we received more than 0 than we need to create a new element and write each in turn and then go to HEROCANDIDATE for the first element
 				String[][] temp = new String[lines_in_repertoire[0].length + size -2][2];
 				// Create a new, tempory  array and copy the elements from the lines_in_repertoire array
@@ -198,29 +195,14 @@ public class Main {
 				// We populate the temp array with the villian moves
 				for (int i = 0; i <size; i++) {
 
+                    String fen_after_move = "0";                    
                     
-                    System.out.print("for size " + i);
-                    if (villian_candidates.get(i) == "0-0"){
-                        
-                        //notation.add
-                        //System.out.print("in here");
-                       // Move villianmove = new Move(null, null)
-                        //notation.add(villianmove);
-
-                    }else{
-                        
-                        System.out.print(" Not in here");
-                        //We get the new fen by playing it on the board
-                        notation.addSanMove(villian_candidates.get(i));
-                    }
-
-                   						
-                    String fen_after_move = notation.getFen();
-                    //we have to remove the last move to go back for next villian move
-                    notation.removeLast();
-                    
-                    System.out.print("pgn and fen = " + villian_candidates.get(i) + fen_after_move);
-
+					//We get the new fen by writing it down  it on the board
+                    notation.addSanMove(villian_candidates.get(i));		
+					fen_after_move = notation.getFen();
+					//we have to remove the last move to go back for next villian move
+					notation.removeLast();
+                   
                     // System.out.println("here and pgn is  =" + pgn + " side to move is: " + board.getSideToMove().toString());
 					if (board.getSideToMove().toString() == "BLACK") {
 

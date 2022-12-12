@@ -508,6 +508,7 @@ public class MoveList extends LinkedList<Move> implements List<Move> {
      * @see MoveList#addSanMove(String, boolean, boolean)
      */
     public void addSanMove(String san) throws MoveConversionException {
+        
         addSanMove(san, false, true);
     }
 
@@ -523,6 +524,7 @@ public class MoveList extends LinkedList<Move> implements List<Move> {
      * @throws MoveConversionException if it is not possible to parse or validate the move
      */
     public void addSanMove(String san, boolean replay, boolean fullValidation) throws MoveConversionException {
+        
         final Board b = getBoard();
         if (replay) {
             if (!b.getFen().equals(getStartFen())) {
@@ -535,7 +537,9 @@ public class MoveList extends LinkedList<Move> implements List<Move> {
                 }
             }
         }
+        
         Move move = decodeSan(b, san, b.getSideToMove());
+        
         if (move == nullMove) {
             return;
         }
@@ -596,7 +600,8 @@ public class MoveList extends LinkedList<Move> implements List<Move> {
      */
     // decode SAN to move
     protected Move decodeSan(Board board, String san, Side side) throws MoveConversionException {
-
+        
+		
         if (san.equalsIgnoreCase("Z0")) {
             return nullMove;
         }
@@ -611,9 +616,11 @@ public class MoveList extends LinkedList<Move> implements List<Move> {
             san = san.substring(0, san.length() - 1);
             strPromotion = lastChar + "";
         }
+       
 
-        if (san.equals("O-O") || san.equals("O-O-O")) { // is castle
-            if (san.equals("O-O")) {
+        if (san.equals("0-0") || san.equals("0-0-0")) { // is castle {}           
+        
+           if (san.equals("0-0")) {
                 return board.getContext().getoo(side);
             } else {
                 return board.getContext().getooo(side);
