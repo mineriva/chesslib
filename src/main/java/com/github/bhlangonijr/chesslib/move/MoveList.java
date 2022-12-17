@@ -618,9 +618,9 @@ public class MoveList extends LinkedList<Move> implements List<Move> {
         }
        
 
-        if (san.equals("0-0") || san.equals("0-0-0")) { // is castle {}           
+        if (san.equals("0-0") || san.equals("O-O") || san.equals("0-0-0")|| san.equals("O-O-O")) { // is castle {}           
         
-           if (san.equals("0-0")) {
+           if (san.equals("0-0") || san.equals("O-O")) {
                 return board.getContext().getoo(side);
             } else {
                 return board.getContext().getooo(side);
